@@ -18,6 +18,9 @@ namespace mhl::sys
               ::close(_fd);
       }
 
+      inline operator int() { return _fd; }
+      inline operator bool() { return _fd != -1; }
+
       [[nodiscard]] inline int get() const { return _fd; }
     private:
         int _fd;
