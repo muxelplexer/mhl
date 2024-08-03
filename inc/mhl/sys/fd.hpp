@@ -23,6 +23,6 @@ namespace mhl::sys
 
       [[nodiscard]] inline int get() const { return _fd; }
     private:
-        int _fd;
+        int _fd{-1};
     };
 }
