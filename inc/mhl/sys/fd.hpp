@@ -15,7 +15,9 @@ namespace mhl::sys
       virtual ~fd()
       {
           if (_fd != -1)
+          {
               ::close(_fd);
+          }
       }
 
       inline explicit operator int() const { return _fd; }
@@ -25,4 +27,4 @@ namespace mhl::sys
     private:
         int _fd{-1};
     };
-}
+}  // namespace mhl::sys
