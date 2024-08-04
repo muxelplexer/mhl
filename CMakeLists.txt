@@ -4,6 +4,7 @@ project(mhl
 
 add_library(mhl STATIC
     src/sys/netlink.cpp
+    src/error.cpp
 )
 target_include_directories(mhl PUBLIC
     inc/
