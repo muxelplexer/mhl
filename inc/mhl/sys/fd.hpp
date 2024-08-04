@@ -20,8 +20,8 @@ namespace mhl::sys
           }
       }
 
-      inline explicit operator int() const { return _fd; }
-      inline explicit operator bool() const { return _fd != -1; }
+      [[nodiscard]] inline explicit operator int() const noexcept { return _fd; }
+      [[nodiscard]] inline explicit operator bool() const noexcept { return _fd != -1; }
 
       [[nodiscard]] inline int get() const { return _fd; }
     private:

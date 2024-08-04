@@ -22,11 +22,11 @@ namespace mhl::sys::net
 
         }
 
-        [[nodiscard]] std::optional<std::string> bind_sock(sockaddr* sockaddr);
-        [[nodiscard]] std::optional<std::string> set_dev_ip(const std::string_view dev_name, const std::string_view ip_address);
-        [[nodiscard]] std::optional<std::string> set_link(const std::string_view dev_name,[[maybe_unused]] const bool state);
+        [[nodiscard]] std::optional<std::string> bind_sock(sockaddr* sockaddr) noexcept;
+        [[nodiscard]] std::optional<std::string> set_dev_ip(const std::string_view dev_name, const std::string_view ip_address) noexcept;
+        [[nodiscard]] std::optional<std::string> set_link(const std::string_view dev_name,[[maybe_unused]] const bool state) noexcept;
 
-        [[nodiscard]] inline mhl::sys::fd& get_fd()
+        [[nodiscard]] inline mhl::sys::fd& get_fd() noexcept
         {
             return _fd;
         }

@@ -20,7 +20,7 @@
 
 namespace mhl::sys::net
 {
-    std::optional<std::string> netlink_sock::bind_sock(sockaddr* sockaddr)
+    std::optional<std::string> netlink_sock::bind_sock(sockaddr* sockaddr) noexcept
     {
         if (::bind(static_cast<int>(_fd), sockaddr, sizeof(*sockaddr)) < 0)
         {
@@ -28,7 +28,7 @@ namespace mhl::sys::net
         }
         return std::nullopt;
     }
-    std::optional<std::string> netlink_sock::set_dev_ip(const std::string_view dev_name, const std::string_view ip_addr)
+    std::optional<std::string> netlink_sock::set_dev_ip(const std::string_view dev_name, const std::string_view ip_addr) noexcept
     {
         struct req_type {
             struct nlmsghdr  header;
@@ -65,7 +65,7 @@ namespace mhl::sys::net
         return std::nullopt;
     }
 
-    std::optional<std::string> netlink_sock::set_link(const std::string_view dev_name,[[maybe_unused]] const bool state)
+    std::optional<std::string> netlink_sock::set_link(const std::string_view dev_name,[[maybe_unused]] const bool state) noexcept
     {
         struct req_type {
             struct nlmsghdr  header;
@@ -89,7 +89,7 @@ namespace mhl::sys::net
         return std::nullopt;
     }
 
-    sockaddr_nl netlink_sock::create_sockaddr(const uint32_t flags) noexcept
+    sockaddr_nl netlink_sock::create_sockaddr(const uint32_t flags) noexcept 
     {
         return {
             .nl_family = AF_NETLINK,

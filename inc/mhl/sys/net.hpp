@@ -4,7 +4,6 @@
 #include <cstddef>
 #include <cstdint>
 #include <format>
-#include <iterator>
 #include <string>
 
 #include <netinet/in.h>
@@ -15,45 +14,45 @@ namespace mhl
     namespace sys::net
     {
         template<class T>
-        T hton(const T);
+        T hton(const T) noexcept;
 
         template<class T>
-        T ntoh(const T);
+        T ntoh(const T) noexcept;
 
         using mac_address  = std::array<std::uint8_t, 6>;
         using ipv4_address = std::array<std::uint8_t, 8>;
 
         template<>
-        [[nodiscard]] inline std::uint16_t hton(const std::uint16_t value)
+        [[nodiscard]] inline std::uint16_t hton(const std::uint16_t value) noexcept
         {
             return htons(value);
         }
 
         template<>
-        [[nodiscard]] inline std::uint32_t hton(const std::uint32_t value)
+        [[nodiscard]] inline std::uint32_t hton(const std::uint32_t value) noexcept
         {
             return htonl(value);
         }
 
         template<>
-        [[nodiscard]] inline std::uint16_t ntoh(const std::uint16_t value)
+        [[nodiscard]] inline std::uint16_t ntoh(const std::uint16_t value) noexcept
         {
             return ntohs(value);
         }
 
         template<>
-        [[nodiscard]] inline std::uint32_t ntoh(const std::uint32_t value)
+        [[nodiscard]] inline std::uint32_t ntoh(const std::uint32_t value) noexcept
         {
             return ntohl(value);
         }
 
-        [[nodiscard]] inline ssize_t send(mhl::sys::fd& fd, const std::string& data)
+        [[nodiscard]] inline ssize_t send(mhl::sys::fd& fd, const std::string& data) noexcept
         {
             return ::send(static_cast<int>(fd), data.data(), data.length(), 0);
         }
 
         template<class T>
-        [[nodiscard]] inline ssize_t send(mhl::sys::fd& fd, const T& data, const size_t data_len = sizeof(T))
+        [[nodiscard]] inline ssize_t send(mhl::sys::fd& fd, const T& data, const size_t data_len = sizeof(T)) noexcept
         {
             return ::send(static_cast<int>(fd), &data, data_len, 0);
         }
