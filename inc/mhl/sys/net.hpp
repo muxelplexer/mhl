@@ -4,6 +4,7 @@
 #include <cstddef>
 #include <cstdint>
 #include <format>
+#include <span>
 #include <string>
 
 #include <netinet/in.h>
@@ -20,7 +21,12 @@ namespace mhl
         T ntoh(const T) noexcept;
 
         using mac_address  = std::array<std::uint8_t, 6>;
+        using mac_span = std::span<mac_address::value_type, 6>;
+        using mac_const_span = std::span<const mac_address::value_type, 6>;
+
         using ipv4_address = std::array<std::uint8_t, 8>;
+        using ipv4_span = std::span<ipv4_address::value_type, 8>;
+        using ipv4_const_span = std::span<const ipv4_address::value_type, 8>;
 
         template<>
         [[nodiscard]] inline std::uint16_t hton(const std::uint16_t value) noexcept
@@ -68,6 +74,32 @@ namespace mhl
     }
 
     [[nodiscard]] inline std::string to_string(const sys::net::ipv4_address& addr) noexcept
+    {
+        return std::format("{}.{}.{}.{}", addr[0], addr[1], addr[2], addr[3]);
+    }
+
+    [[nodiscard]] inline std::string to_string(const sys::net::mac_span& addr) noexcept
+    {
+        return std::format("{:02X}:{:02X}:{:02X}:{:02X}:{:02X}:{:02X}",
+                addr[0], addr[1], 
+                addr[2], addr[2],
+                addr[4], addr[5]);
+    }
+
+    [[nodiscard]] inline std::string to_string(const sys::net::ipv4_span& addr) noexcept
+    {
+        return std::format("{}.{}.{}.{}", addr[0], addr[1], addr[2], addr[3]);
+    }
+
+    [[nodiscard]] inline std::string to_string(const sys::net::mac_const_span& addr) noexcept
+    {
+        return std::format("{:02X}:{:02X}:{:02X}:{:02X}:{:02X}:{:02X}",
+                addr[0], addr[1], 
+                addr[2], addr[2],
+                addr[4], addr[5]);
+    }
+
+    [[nodiscard]] inline std::string to_string(const sys::net::ipv4_const_span& addr) noexcept
     {
         return std::format("{}.{}.{}.{}", addr[0], addr[1], addr[2], addr[3]);
     }
